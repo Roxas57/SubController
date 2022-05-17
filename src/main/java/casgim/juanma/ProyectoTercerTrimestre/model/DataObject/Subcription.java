@@ -1,12 +1,13 @@
 package casgim.juanma.ProyectoTercerTrimestre.model.DataObject;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Subcription {
 	private int id_sub;
 	private String service;
 	private float price;
-	private Date pay_day;
+	private LocalDateTime pay_day;
 	private String type;
 	private int id_user;
 	
@@ -14,12 +15,12 @@ public class Subcription {
 		this.id_sub = -1;
 		this.service = "";
 		this.price = 0;
-		this.pay_day = new Date();
+		this.pay_day = LocalDateTime.now();
 		this.type = "";
 		this.id_user = -1;
 	}
 	
-	public Subcription(int id_sub, String service, float price, Date pay_day, String type, int id_user) {
+	public Subcription(int id_sub, String service, float price, LocalDateTime pay_day, String type, int id_user) {
 		super();
 		this.id_sub = id_sub;
 		this.service = service;
@@ -53,12 +54,12 @@ public class Subcription {
 		this.price = price;
 	}
 
-	public Date getPay_day() {
+	public LocalDateTime getPay_day() {
 		return pay_day;
 	}
 
-	public void setPay_day(Date pay_day) {
-		this.pay_day = pay_day;
+	public void setPay_day(LocalDateTime diapago) {
+		this.pay_day = diapago;
 	}
 
 	public String getType() {

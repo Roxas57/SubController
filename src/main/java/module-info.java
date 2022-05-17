@@ -9,6 +9,7 @@ module casgim.juanma.ProyectoTercerTrimestre {
 
     opens casgim.juanma.ProyectoTercerTrimestre to javafx.fxml,java.xml.bind;
     opens casgim.juanma.ProyectoTercerTrimestre.utils;
+    opens casgim.juanma.ProyectoTercerTrimestre.model.DAO;
     opens casgim.juanma.ProyectoTercerTrimestre.model.DataObject;
     exports casgim.juanma.ProyectoTercerTrimestre;
 }

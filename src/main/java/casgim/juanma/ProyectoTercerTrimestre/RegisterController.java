@@ -56,12 +56,14 @@ public class RegisterController {
 				String usuario = user.getText();
 		    	String pass = password.getText();
 		    	
-		    	int id=methods.generaAleatorio(2, 100);
+		    	int id=methods.generaAleatorio(0, 10000);
 				/*
 				do {
-					id = methods.generaAleatorio(2, 100);
+					id = methods.generaAleatorio(0, 1000);
+					System.out.println(udao.get(id));
 					u = udao.get(id);
-				} while (u!=null);
+					System.out.println(u);
+				} while (u.getNick()!=null);
 				*/
 				u.setId_user(id);
 		    	u.setMail(correo);
@@ -72,11 +74,11 @@ public class RegisterController {
 		    	result = udao.insert(u);	
 		    	
 		    	if (result!=false) {
-		    		JOptionPane.showMessageDialog(null, "Usuario registrado con éxito");
 		    		DataService.useraux.setId_user(id);
 		    		DataService.useraux.setMail(correo);
 		    		DataService.useraux.setNick(usuario);
 		    		DataService.useraux.setPassword(pass);
+		    		JOptionPane.showMessageDialog(null, "Usuario registrado con éxito");
 			    	switchToSubcription(event);
 		    	} else {
 		    		JOptionPane.showMessageDialog(null, "Error al crear usuario");

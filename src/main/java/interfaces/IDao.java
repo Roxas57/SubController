@@ -8,4 +8,5 @@ public interface IDao<T, K> {
 	Collection <T> getAll();
 	boolean update (T ob);
 	boolean delete (T ob);
+	boolean delById(int id);
 }

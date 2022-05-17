@@ -42,10 +42,9 @@ public class UserDAO implements IDao<User, Integer>{
 	@Override
 	public User get(Integer id) {
 		User u=null;
-		String sql = "SELECT id_user,mail,nick,password FROM user WHERE id_user=?";
+		String sql = "SELECT id_user,mail,nick,password FROM user WHERE id_user='"+id+"'";
 		try {
 			PreparedStatement sentencia = miConexion.prepareStatement(sql);
-			sentencia.setInt(1, id);
 			ResultSet miRs= sentencia.executeQuery();
 			u=new User();
 			miRs.next();
@@ -98,6 +97,12 @@ public class UserDAO implements IDao<User, Integer>{
 			e.printStackTrace();
 		}
 		return result;
+	}
+
+	@Override
+	public boolean delById(int id) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 

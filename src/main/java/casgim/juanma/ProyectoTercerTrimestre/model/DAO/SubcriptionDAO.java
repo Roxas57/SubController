@@ -25,15 +25,17 @@ public class SubcriptionDAO implements IDao<Subcription, Integer>{
 	
 	@Override
 	public boolean insert(Subcription ob) {
-		boolean result=false;
-		String sql="INSERT INTO subscription VALUES(?,?,?,?,?,)";
+		
+		boolean result=false;	
+		String sql="INSERT INTO subscription (id_sub, service, price, pay_day, type, id_user) VALUES(?,?,?,?,?,?)";
 		try {
 			PreparedStatement sentencia = miConexion.prepareStatement(sql);
 			sentencia.setInt(1, ob.getId_sub());
 			sentencia.setString(2, ob.getService());
 			sentencia.setFloat(3, ob.getPrice());
-			sentencia.setDate(4, (Date) ob.getPay_day());
+			sentencia.setObject(4, ob.getPay_day());
 			sentencia.setString(5, ob.getType());
+			sentencia.setInt(6, ob.getId_user());
 			sentencia.executeUpdate();
 			result=true;
 		} catch (SQLException e) {
@@ -54,7 +56,7 @@ public class SubcriptionDAO implements IDao<Subcription, Integer>{
 				aux.setId_sub(rs.getInt(1));
 				aux.setService(rs.getString(2));
 				aux.setPrice(rs.getFloat(3));
-				aux.setPay_day(rs.getDate(4));
+				aux.setPay_day(rs.getTimestamp(4).toLocalDateTime());
 				aux.setType(rs.getString(5));
 			}
 		} catch (SQLException e) {
@@ -75,7 +77,7 @@ public class SubcriptionDAO implements IDao<Subcription, Integer>{
 				aux.setId_sub(rs.getInt(1));
 				aux.setService(rs.getString(2));
 				aux.setPrice(rs.getFloat(3));
-				aux.setPay_day(rs.getDate(4));
+				aux.setPay_day(rs.getTimestamp(4).toLocalDateTime());
 				aux.setType(rs.getString(5));
 				result.add(aux);
 			}
@@ -97,7 +99,7 @@ public class SubcriptionDAO implements IDao<Subcription, Integer>{
 				s.setId_sub(rs.getInt("id_sub"));
 				s.setService(rs.getString("service"));
 				s.setPrice(rs.getFloat("price"));
-				s.setPay_day(rs.getDate("pay_day"));
+				s.setPay_day(rs.getTimestamp("pay_day").toLocalDateTime());
 				s.setType(rs.getString("type"));
 				listaSub.add(s);
 			}
@@ -118,7 +120,7 @@ public class SubcriptionDAO implements IDao<Subcription, Integer>{
 				s.setId_sub(rs.getInt("id_sub"));
 				s.setService(rs.getString("service"));
 				s.setPrice(rs.getFloat("price"));
-				s.setPay_day(rs.getDate("pay_day"));
+				s.setPay_day(rs.getTimestamp("pay_day").toLocalDateTime());
 				s.setType(rs.getString("type"));
 				
 				listaSub.add(s);
@@ -131,15 +133,15 @@ public class SubcriptionDAO implements IDao<Subcription, Integer>{
 
 	@Override
 	public boolean update(Subcription ob) {
-		String update = "UPDATE "+ob+"FROM subscription";
+		String update = "UPDATE subscription SET service=?,price=?,pay_day=?,type=? WHERE id_sub =?";
 		boolean result=false;
 		try {
 			PreparedStatement sentencia = miConexion.prepareStatement(update);
-			sentencia.setInt(1, ob.getId_sub());
-			sentencia.setString(2, ob.getService());
-			sentencia.setFloat(3, ob.getPrice());
-			sentencia.setDate(4, (Date) ob.getPay_day());
-			sentencia.setString(5, ob.getType());
+			sentencia.setInt(5, ob.getId_sub());
+			sentencia.setString(1, ob.getService());
+			sentencia.setFloat(2, ob.getPrice());
+			sentencia.setObject(3, ob.getPay_day());
+			sentencia.setString(4, ob.getType());
 			sentencia.executeUpdate();
 			result = true;
 		} catch (SQLException e) {
@@ -150,10 +152,26 @@ public class SubcriptionDAO implements IDao<Subcription, Integer>{
 
 	@Override
 	public boolean delete(Subcription ob) {
-		String update = "DELETE "+ob+"FROM subscription";
+		String update = "DELETE subscription WHERE id_sub=?";
 		boolean result=false;
 		try {
 			PreparedStatement sentencia = miConexion.prepareStatement(update);
+			sentencia.setInt(1, ob.getId_sub());
+			sentencia.executeUpdate();
+			result=true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	@Override
+	public boolean delById(int id) {
+		String update = "DELETE FROM subscription WHERE id_sub=?";
+		boolean result=false;
+		try {
+			PreparedStatement sentencia = miConexion.prepareStatement(update);
+			sentencia.setInt(1, id);
 			sentencia.executeUpdate();
 			result=true;
 		} catch (SQLException e) {

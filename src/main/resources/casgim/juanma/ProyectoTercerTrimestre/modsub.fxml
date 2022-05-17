@@ -10,16 +10,16 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="casgim.juanma.ProyectoTercerTrimestre.ModSubController">
    <children>
-      <Text layoutX="90.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="???" textAlignment="CENTER" wrappingWidth="120.32421875">
+      <Text layoutX="75.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mod Sub" textAlignment="CENTER" wrappingWidth="150.39999999999986">
          <font>
             <Font name="DejaVu Serif Bold" size="38.0" />
          </font>
       </Text>
-      <Button layoutX="56.0" layoutY="368.0" mnemonicParsing="false" text="Modificar" />
-      <TextField layoutX="56.0" layoutY="126.0" prefHeight="32.0" prefWidth="188.0" promptText="Servicio" />
+      <Button layoutX="56.0" layoutY="368.0" mnemonicParsing="false" onAction="#saveNewSub" text="Modificar" />
+      <TextField fx:id="service" layoutX="56.0" layoutY="126.0" prefHeight="32.0" prefWidth="188.0" promptText="Servicio" />
       <ChoiceBox fx:id="ChB" layoutX="75.0" layoutY="257.0" prefWidth="150.0" />
-      <DatePicker layoutX="62.0" layoutY="189.0" promptText="Último Pago" />
+      <DatePicker fx:id="payDay" layoutX="62.0" layoutY="189.0" promptText="Último Pago" />
       <Button layoutX="177.0" layoutY="368.0" mnemonicParsing="false" onAction="#switchToConfDel" text="Eliminar" />
-      <TextField layoutX="56.0" layoutY="314.0" prefHeight="32.0" prefWidth="188.0" promptText="Precio" />
+      <TextField fx:id="price" layoutX="56.0" layoutY="314.0" prefHeight="32.0" prefWidth="188.0" promptText="Precio" />
    </children>
 </AnchorPane>

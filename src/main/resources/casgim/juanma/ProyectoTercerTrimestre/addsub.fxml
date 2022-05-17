@@ -10,15 +10,15 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="casgim.juanma.ProyectoTercerTrimestre.AddSub">
    <children>
-      <Text layoutX="90.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="???" textAlignment="CENTER" wrappingWidth="120.32421875">
+      <Text layoutX="47.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Añade un Servicio" textAlignment="CENTER" wrappingWidth="205.12420654296875">
          <font>
             <Font name="DejaVu Serif Bold" size="38.0" />
          </font>
       </Text>
-      <Button layoutX="112.0" layoutY="368.0" mnemonicParsing="false" text="Añadir" />
-      <TextField layoutX="56.0" layoutY="126.0" prefHeight="32.0" prefWidth="188.0" promptText="Servicio" />
+      <Button fx:id="addButton" layoutX="112.0" layoutY="368.0" mnemonicParsing="false" onAction="#addButton" text="Añadir" />
+      <TextField fx:id="service" layoutX="56.0" layoutY="126.0" prefHeight="32.0" prefWidth="188.0" promptText="Servicio" />
       <ChoiceBox fx:id="ChB" layoutX="74.0" layoutY="248.0" prefWidth="150.0" />
-      <DatePicker layoutX="62.0" layoutY="189.0" promptText="Último Pago" />
-      <TextField layoutX="56.0" layoutY="303.0" prefHeight="32.0" prefWidth="188.0" promptText="Precio" />
+      <DatePicker fx:id="payDay" layoutX="62.0" layoutY="189.0" promptText="Último Pago" />
+      <TextField fx:id="price" layoutX="56.0" layoutY="303.0" prefHeight="32.0" prefWidth="188.0" promptText="Precio" />
    </children>
 </AnchorPane>
