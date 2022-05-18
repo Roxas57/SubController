@@ -11,6 +11,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import casgim.juanma.ProyectoTercerTrimestre.model.DAO.UserDAO;
 import casgim.juanma.ProyectoTercerTrimestre.utils.Connect;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -25,35 +26,54 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
+/**
+ * 
+ * @author Juan María Castillo Giménez
+ * 
+ * Esta clase sirve para controlar la ventana login.fxml
+ *
+ */
 public class LoginController {
 	private Connection miConexion;
 	private PreparedStatement sentencia;
 	private ResultSet resultado;
+	UserDAO userDao = new UserDAO();
 	
 	@FXML
 	private TextField user;
 	
 	@FXML
 	private PasswordField password;
-
+	
+	/*
+	 * Este metodo cambia a la ventana register.fxml
+	 */
     @FXML
     private void switchToRegister() throws IOException {
         App.setRoot("register");
     }
     
+	/*
+	 * Este metodo sirve para iniciar sesion con un usuario registrado
+	 * en la base de datos.
+	 */
     @FXML
     private void loginButton(ActionEvent event) throws IOException {
     	try {
 			this.miConexion = Connect.getConnect();
 			String usuario = user.getText();
 	    	String pass = password.getText();
-	    	
+	    	/*
+	    	boolean result = false;
+	    	result = userDao.getByIdPassword(usuario, pass);
+	    	*/
 	    	String sql = "SELECT id_user,mail,nick,password FROM user "
 	    			+ "	WHERE nick=? AND password=?";
 	    	sentencia = miConexion.prepareStatement(sql);
 	    	sentencia.setString(1, usuario);
 	    	sentencia.setString(2, pass);
 	    	resultado = sentencia.executeQuery();
+	    	
 	    	if (resultado != null) {
 	    		if (resultado.next()) {
 	    			int id = resultado.getInt("id_user");
@@ -80,6 +100,9 @@ public class LoginController {
     	
     }
     
+    /*
+	 * Este metodo cambia a la ventana subcription.fxml
+	 */
     @FXML
     private void switchToSubcription(ActionEvent event) throws IOException {
     	((Node) (event.getSource())).getScene().getWindow().hide();

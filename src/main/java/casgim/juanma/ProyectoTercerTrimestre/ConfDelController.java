@@ -16,11 +16,22 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
+/**
+ * 
+ * @author Juan María Castillo Giménez
+ * 
+ * Esta clase sirve para controlar la ventana confdel.fxml
+ *
+ */
 public class ConfDelController {
 	SubcriptionDAO subdao = new SubcriptionDAO();
 	int id_sub_aux = DataService.subaux.getId_sub();
 	boolean del = false;
 	
+	/*
+	 * Este metodo recibe una id de una subcripcion a borrar
+	 * si se pulsa el boton eliminar borra la subcripcion indicada
+	 */
 	@FXML
 	private void deleteSub(ActionEvent event) throws IOException  {
 		boolean result = false;
@@ -34,6 +45,9 @@ public class ConfDelController {
     	}
 	}
 	
+	/*
+	 * Este metodo cambia a la ventana subcription.fxml
+	 */
 	@FXML
     private void switchToSubcription(ActionEvent event) throws IOException {
     	((Node) (event.getSource())).getScene().getWindow().hide();

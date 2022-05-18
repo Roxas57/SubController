@@ -31,6 +31,13 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 
+/**
+ * 
+ * @author Juan María Castillo Giménez
+ * 
+ * Esta clase sirve para controlar la ventana addsub.fxml
+ *
+ */
 public class AddSub implements Initializable{
 	private Connection miConexion;
 	SubcriptionDAO subdao = new SubcriptionDAO();
@@ -47,6 +54,12 @@ public class AddSub implements Initializable{
 	
 	private String[] sub = {"Diaria","Semanal","Mensual","Anual"};
 	
+	/*
+	 * Este método controla el funcionamiento del boton
+	 * addButton, en el se comprueba que los datos que les pasamos
+	 * para registrar son correctos y los añade en la base de datos
+	 * y una vez finaliza cambia a la ventana subcription.fxml
+	 */
 	@FXML
 	private void addButton(ActionEvent event) throws IOException {
 		try {
@@ -82,12 +95,19 @@ public class AddSub implements Initializable{
 		}
 	}
 	
+	/*
+	 * Este metodo sirve para cargar un array en el objeto
+	 * ChB (ChoiceBox) e indica en el mismo la opción "Diaria"
+	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		ChB.setValue("Diaria");
 		ChB.getItems().addAll(sub);
 	}
 	
+	/*
+	 * Este metodo cambia a la ventana subcription.fxml
+	 */
 	@FXML
     private void switchToSubcription(ActionEvent event) throws IOException {
     	((Node) (event.getSource())).getScene().getWindow().hide();

@@ -47,6 +47,10 @@ public class ModSubController implements Initializable{
 	
 	private String[] sub = {"Diaria","Semanal","Mensual","Anual"};
 
+	/*
+	 * Este metodo sirve para cargar un array en el objeto
+	 * ChB (ChoiceBox) e indica en el mismo la opción "Diaria"
+	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		ChB.setValue("Diaria");
@@ -54,17 +58,19 @@ public class ModSubController implements Initializable{
 		
 	}
 	
+	/*
+	 * Este metodo cambia a la ventana confdel.fxml
+	 */
     @FXML
-    private void switchToConfDel() throws IOException {
+    private void switchToConfDel(ActionEvent event) throws IOException {
+    	((Node) (event.getSource())).getScene().getWindow().hide();
+
     	Parent root = FXMLLoader.load(getClass().getResource("confdel.fxml"));
     	Scene scene = new Scene(root,300,179);
     	Stage newStage = new Stage();
     	newStage.setScene(scene);
     	newStage.show();
     	
-    	if (DataService.delete!=false) {
-    		
-    	}
     }
     
     public void initAttributes(Subcription s) {
@@ -72,6 +78,10 @@ public class ModSubController implements Initializable{
     	this.service.setText(s.getService()+"");
     }
     
+    /*
+	 * Este metodo sirve para guardar los cambios que vayamos
+	 * a realizar en una subcripcion
+	 */
     @FXML
     private void saveNewSub(ActionEvent event) throws IOException {
     	try {
@@ -84,17 +94,11 @@ public class ModSubController implements Initializable{
 			float fprecio = Float.parseFloat(precio);
 			
 			subcripcion_aux.setId_sub(id_sub_aux);
-			System.out.println(subcripcion_aux.getId_sub());
 			subcripcion_aux.setService(plataforma);
-			System.out.println(subcripcion_aux.getService());
 			subcripcion_aux.setPay_day(diapago);
-			System.out.println(subcripcion_aux.getPay_day());
 			subcripcion_aux.setType(tipopago);
-			System.out.println(subcripcion_aux.getType());
 			subcripcion_aux.setPrice(fprecio);
-			System.out.println(subcripcion_aux.getPrice());
 			subcripcion_aux.setId_user(id_u_aux);
-			System.out.println(subcripcion_aux.getId_user());
 			
 			boolean result = false;
 			result = subdao.update(subcripcion_aux);
@@ -110,6 +114,9 @@ public class ModSubController implements Initializable{
 		}
     }
     
+    /*
+	 * Este metodo cambia a la ventana subcription.fxml
+	 */
     @FXML
     private void switchToSubcription(ActionEvent event) throws IOException {
     	((Node) (event.getSource())).getScene().getWindow().hide();

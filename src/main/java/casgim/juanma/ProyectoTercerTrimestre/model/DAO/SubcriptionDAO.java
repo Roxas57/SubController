@@ -12,11 +12,11 @@ import java.util.Collection;
 import casgim.juanma.ProyectoTercerTrimestre.model.DataObject.Subcription;
 import casgim.juanma.ProyectoTercerTrimestre.model.DataObject.User;
 import casgim.juanma.ProyectoTercerTrimestre.utils.Connect;
-import interfaces.IDao;
+import interfaces.ISubcriptionDao;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class SubcriptionDAO implements IDao<Subcription, Integer>{
+public class SubcriptionDAO implements ISubcriptionDao<Subcription, Integer>{
 	private Connection miConexion;
 	
 	public SubcriptionDAO() {

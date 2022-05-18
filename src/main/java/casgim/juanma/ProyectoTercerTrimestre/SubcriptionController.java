@@ -29,6 +29,14 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
+
+/**
+ * 
+ * @author Juan María Castillo Giménez
+ * 
+ * Esta clase sirve para controlar la ventana subcription.fxml
+ *
+ */
 public class SubcriptionController {
 	SubcriptionDAO sub = new SubcriptionDAO();
 	int id_u_aux = DataService.useraux.getId_user();
@@ -50,6 +58,9 @@ public class SubcriptionController {
 	@FXML
 	private ObservableList<Subcription> subcripcion;
 	
+	/*
+	 * Este metodo cambia a la ventana addsub.fxml
+	 */
     @FXML
     private void switchToAddSub(ActionEvent event) throws IOException {
     	((Node) (event.getSource())).getScene().getWindow().hide();
@@ -69,6 +80,10 @@ public class SubcriptionController {
 		});
     }
     
+    /*
+	 * Este metodo cambia a la ventana modsub.fxml cuando hemos seleccionado
+	 * una subcripcion a modificar
+	 */
     @FXML
     private void switchToModSub(ActionEvent event) throws IOException {
     	Subcription sub = this.mySubcription.getSelectionModel().getSelectedItem();
@@ -105,6 +120,10 @@ public class SubcriptionController {
     	
     }
     
+    /*
+	 * Este metodo inicializa el campo TableView con las subcripciones
+	 * de un usuario almacenadas en una base de datos
+	 */
 	@FXML
 	protected void initialize() {
 		subcripcion = FXCollections.observableArrayList();

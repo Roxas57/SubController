@@ -26,6 +26,13 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
+/**
+ * 
+ * @author Juan María Castillo Giménez
+ * 
+ * Esta clase sirve para controlar la ventana register.fxml
+ *
+ */
 public class RegisterController {
 	private Connection miConexion;
 	private PreparedStatement sentencia;
@@ -41,6 +48,10 @@ public class RegisterController {
 	@FXML
 	private PasswordField password;
 	
+	/*
+	 * Este metodo sirve para registrar un usuario con sus atributos
+	 * válidos en una base de datos
+	 */
 	@FXML
 	private void registerButton(ActionEvent event) throws IOException {
 		try {
@@ -91,6 +102,9 @@ public class RegisterController {
 		}
 	}
 	
+	/*
+	 * Este metodo cambia a la ventana subcription.fxml
+	 */
     @FXML
     private void switchToSubcription(ActionEvent event) throws IOException {
     	((Node) (event.getSource())).getScene().getWindow().hide();

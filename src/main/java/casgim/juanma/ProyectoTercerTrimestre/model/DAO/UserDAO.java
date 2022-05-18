@@ -8,11 +8,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Collection;
 
+import javax.swing.JOptionPane;
+
+import casgim.juanma.ProyectoTercerTrimestre.DataService;
 import casgim.juanma.ProyectoTercerTrimestre.model.DataObject.User;
 import casgim.juanma.ProyectoTercerTrimestre.utils.Connect;
-import interfaces.IDao;
+import interfaces.IUserDao;
 
-public class UserDAO implements IDao<User, Integer>{
+public class UserDAO implements IUserDao<User, Integer>{
 	private Connection miConexion;
 
 	
@@ -60,11 +63,40 @@ public class UserDAO implements IDao<User, Integer>{
 		}
 		return u;
 	}
-
+	
 	@Override
-	public Collection<User> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+	public User getByIdPassword(String id_user, String pass) {
+		User u=null;
+		
+		String sql = "SELECT id_user,mail,nick,password FROM user "
+    			+ "	WHERE nick=? AND password=?";
+		try {
+			PreparedStatement sentencia = miConexion.prepareStatement(sql);
+			sentencia.setString(1, id_user);
+	    	sentencia.setString(2, pass);
+			ResultSet resultado= sentencia.executeQuery();
+			if (resultado != null) {
+	    		if (resultado.next()) {
+	    			int id = resultado.getInt("id_user");
+	    			String correo = resultado.getString("mail");
+	    			String nick = resultado.getString("nick");
+	    			String password = resultado.getString("password");
+	    			DataService.useraux.setId_user(id);
+	    			DataService.useraux.setMail(correo);
+	    			DataService.useraux.setNick(nick);
+	    			DataService.useraux.setPassword(password);
+	    		} else {
+		    		JOptionPane.showMessageDialog(null, "Usuario o contraseña erróneos");
+		    	}
+			} else {
+	    		JOptionPane.showMessageDialog(null, "Usuario o contraseña inválidos");
+	    	}
+			SubcriptionDAO sDao = new SubcriptionDAO();
+			u.setMySubs(sDao.getAll());
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return u;
 	}
 
 	@Override
