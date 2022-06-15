@@ -12,6 +12,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import casgim.juanma.ProyectoTercerTrimestre.model.DAO.UserDAO;
+import casgim.juanma.ProyectoTercerTrimestre.model.DataObject.User;
 import casgim.juanma.ProyectoTercerTrimestre.utils.Connect;
 import casgim.juanma.ProyectoTercerTrimestre.utils.Methods;
 import javafx.application.Platform;
@@ -60,50 +61,20 @@ public class LoginController {
 	 */
     @FXML
     private void loginButton(ActionEvent event) throws IOException {
-    	try {
-			this.miConexion = Connect.getConnect();
-			String usuario = user.getText();
-			String pass = Methods.getSHA256(password.getText());
-	    	//String pass = password.getText();
-	    	/*
-	    	boolean result = false;
-	    	result = userDao.getByIdPassword(usuario, pass);
-	    	*/
-	    	String sql = "SELECT id_user,mail,nick,password FROM user "
-	    			+ "	WHERE nick=? AND password=?";
-	    	sentencia = miConexion.prepareStatement(sql);
-	    	sentencia.setString(1, usuario);
-	    	sentencia.setString(2, pass);
-	    	resultado = sentencia.executeQuery();
-	    	
-	    	if (resultado != null) {
-	    		if (resultado.next()) {
-	    			int id = resultado.getInt("id_user");
-	    			String correo = resultado.getString("mail");
-	    			String nick = resultado.getString("nick");
-	    			String passw = resultado.getString("password");
-	    			DataService.useraux.setId_user(id);
-	    			DataService.useraux.setMail(correo);
-	    			DataService.useraux.setNick(nick);
-	    			DataService.useraux.setPassword(passw);
-	    			if (user.getText().equals("root") && password.getText().equals("root")) {
-	    				switchToRootMenu(event);
-	    			} else {
-	    				switchToSubcription(event);
-	    			}
-		    		
-		    	} else {
-		    		JOptionPane.showMessageDialog(null, "Usuario o contraseña erróneos");
-		    	}
-	    	} else {
-	    		JOptionPane.showMessageDialog(null, "Usuario o contraseña inválidos");
-	    	}
-	    	
-	
-		} catch (SQLException ex) {
-			// TODO: handle exception
-			JOptionPane.showMessageDialog(null, ex.getMessage());
-		}
+    	UserDAO udao = new UserDAO();
+    	String usuario = user.getText();
+		String pass = Methods.getSHA256(password.getText());
+		User u = udao.getByIdPassword(usuario, pass);
+		
+		if (u!=null) {
+			if (user.getText().equals("root") && password.getText().equals("root")) {
+				switchToRootMenu(event);
+			} else {
+				switchToSubcription(event);
+			}
+		} else {
+    		JOptionPane.showMessageDialog(null, "Usuario o contraseña erróneos");
+    	}
     	
     }
     

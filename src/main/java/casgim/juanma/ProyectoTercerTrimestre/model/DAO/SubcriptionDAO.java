@@ -117,30 +117,7 @@ public class SubcriptionDAO implements ISubcriptionDao<Subcription, Integer>{
 		}
 		return listaSub;
 	}
-	
-	//Metodo Incorrecto
-	public ObservableList<Subcription> getAllSub(User u) {
-		ObservableList<Subcription> listaSub = FXCollections.observableArrayList();
-		String consulta = "SELECT id_sub,service,price,pay_day,type FROM subscription WHERE id_user=?";//'"+u.getId_user()+"'";
-		try {
-			PreparedStatement sentencia = miConexion.prepareStatement(consulta);
-			sentencia.setInt(1, u.getId_user());
-			ResultSet rs = sentencia.executeQuery();
-			while(rs.next()) {
-				Subcription s=new Subcription();
-				s.setId_sub(rs.getInt("id_sub"));
-				s.setService(rs.getString("service"));
-				s.setPrice(rs.getFloat("price"));
-				s.setPay_day(rs.getTimestamp("pay_day").toLocalDateTime());
-				s.setType(rs.getString("type"));
-				
-				listaSub.add(s);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return listaSub;
-	}
+
 
 	@Override
 	public boolean update(Subcription ob) {

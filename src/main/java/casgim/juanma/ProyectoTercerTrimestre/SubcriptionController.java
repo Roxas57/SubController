@@ -41,6 +41,7 @@ import javafx.stage.WindowEvent;
  */
 public class SubcriptionController {
 	SubcriptionDAO sub = new SubcriptionDAO();
+	UserDAO udao = new UserDAO();
 	int id_u_aux = DataService.useraux.getId_user();
 	
     @FXML
@@ -152,7 +153,7 @@ public class SubcriptionController {
 		this.price.setCellValueFactory(new PropertyValueFactory<>("price"));
 		this.payDay.setCellValueFactory(new PropertyValueFactory<>("pay_day"));
 		this.type.setCellValueFactory(new PropertyValueFactory<>("type"));
-		List<Subcription> list = sub.getAllSub(DataService.useraux);
+		List<Subcription> list = udao.getAllSub(DataService.useraux);
 		Iterator<Subcription> it = list.iterator();
 		while (it.hasNext()) {
 			Subcription sub = (Subcription) it.next();

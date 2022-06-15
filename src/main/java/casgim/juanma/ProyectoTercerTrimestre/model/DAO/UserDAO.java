@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 
 import casgim.juanma.ProyectoTercerTrimestre.DataService;
 import casgim.juanma.ProyectoTercerTrimestre.interfaces.IUserDao;
+import casgim.juanma.ProyectoTercerTrimestre.model.DataObject.Subcription;
 import casgim.juanma.ProyectoTercerTrimestre.model.DataObject.User;
 import casgim.juanma.ProyectoTercerTrimestre.utils.Connect;
 import javafx.collections.FXCollections;
@@ -69,7 +70,7 @@ public class UserDAO implements IUserDao<User, Integer>{
 	
 	@Override
 	public User getByIdPassword(String id_user, String pass) {
-		User u=null;
+		User u=new User();
 		
 		String sql = "SELECT id_user,mail,nick,password FROM user "
     			+ "	WHERE nick=? AND password=?";
@@ -80,26 +81,48 @@ public class UserDAO implements IUserDao<User, Integer>{
 			ResultSet resultado= sentencia.executeQuery();
 			if (resultado != null) {
 	    		if (resultado.next()) {
-	    			int id = resultado.getInt("id_user");
-	    			String correo = resultado.getString("mail");
-	    			String nick = resultado.getString("nick");
-	    			String password = resultado.getString("password");
-	    			DataService.useraux.setId_user(id);
-	    			DataService.useraux.setMail(correo);
-	    			DataService.useraux.setNick(nick);
-	    			DataService.useraux.setPassword(password);
+	    			u.setId_user(resultado.getInt("id_user"));
+	    			u.setMail(resultado.getString("mail"));
+	    			u.setNick(resultado.getString("nick"));
+	    			u.setPassword(resultado.getString("password"));
+	    			DataService.useraux.setId_user(u.getId_user());
+	    			DataService.useraux.setMail(u.getMail());
+	    			DataService.useraux.setNick(u.getNick());
+	    			DataService.useraux.setPassword(u.getPassword());
 	    		} else {
 		    		JOptionPane.showMessageDialog(null, "Usuario o contraseña erróneos");
 		    	}
 			} else {
 	    		JOptionPane.showMessageDialog(null, "Usuario o contraseña inválidos");
 	    	}
-			SubcriptionDAO sDao = new SubcriptionDAO();
-			u.setMySubs(sDao.getAll());
+			u.setMySubs(getAllSub(u));
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return u;
+	}
+	
+	public List<Subcription> getAllSub(User u) {
+		List<Subcription> listaSub = FXCollections.observableArrayList();
+		String consulta = "SELECT id_sub,service,price,pay_day,type FROM subscription WHERE id_user=?";
+		try {
+			PreparedStatement sentencia = miConexion.prepareStatement(consulta);
+			sentencia.setInt(1, u.getId_user());
+			ResultSet rs = sentencia.executeQuery();
+			while(rs.next()) {
+				Subcription s=new Subcription();
+				s.setId_sub(rs.getInt("id_sub"));
+				s.setService(rs.getString("service"));
+				s.setPrice(rs.getFloat("price"));
+				s.setPay_day(rs.getTimestamp("pay_day").toLocalDateTime());
+				s.setType(rs.getString("type"));
+				
+				listaSub.add(s);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return listaSub;
 	}
 
 	@Override
