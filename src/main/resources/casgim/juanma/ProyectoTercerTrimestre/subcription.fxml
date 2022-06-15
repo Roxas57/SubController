@@ -7,7 +7,6 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <FlowPane maxHeight="400" maxWidth="600" minHeight="400" minWidth="600" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="casgim.juanma.ProyectoTercerTrimestre.SubcriptionController">
@@ -28,7 +27,7 @@
                   </Button>
                </children>
             </HBox>
-            <Label prefHeight="64.0" prefWidth="290.0" text="SUBCRIPTIONS" textAlignment="CENTER">
+            <Label prefHeight="64.0" prefWidth="258.0" text="SUBCRIPTIONS" textAlignment="CENTER">
                <font>
                   <Font size="36.0" />
                </font>
@@ -36,23 +35,11 @@
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                </HBox.margin>
             </Label>
-            <VBox prefHeight="97.0" prefWidth="140.0">
-               <children>
-                  <Label text="Total Anual" textAlignment="CENTER">
-                     <font>
-                        <Font size="23.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="annual_expend" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="57.0" prefWidth="142.0" text="???" textAlignment="RIGHT">
-                     <font>
-                        <Font size="28.0" />
-                     </font>
-                     <padding>
-                        <Insets right="15.0" />
-                     </padding>
-                  </Label>
-               </children>
-            </VBox>
+            <Button mnemonicParsing="false" onAction="#switchToLogin" prefHeight="96.0" prefWidth="115.0" text="Volver">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Button>
          </children>
       </HBox>
       <TableView fx:id="mySubcription" prefHeight="305.0" prefWidth="600.0">

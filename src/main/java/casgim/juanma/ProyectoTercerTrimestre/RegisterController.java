@@ -69,14 +69,7 @@ public class RegisterController {
 		    	//String pass = password.getText();
 		    	
 		    	int id=methods.generaAleatorio(0, 10000);
-				/*
-				do {
-					id = methods.generaAleatorio(0, 1000);
-					System.out.println(udao.get(id));
-					u = udao.get(id);
-					System.out.println(u);
-				} while (u.getNick()!=null);
-				*/
+
 				u.setId_user(id);
 		    	u.setMail(correo);
 		    	u.setNick(usuario);

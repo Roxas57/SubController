@@ -52,13 +52,17 @@ public class RootModUserController {
 		try {
 			this.miConexion = Connect.getConnect();
 			User user_aux = new User();
-			String correo = mail.getText();
-			String nombre = nick.getText();
-			Pattern pat= Pattern.compile("^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[@#$%^&+=?])(?=\\S+$).{8,}$");
-			Matcher mat= pat.matcher(password.getText());
-			String contra = methods.getSHA256(password.getText());
+			Pattern pat= Pattern.compile("^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$");
+			Matcher mat= pat.matcher(mail.getText());
+			Pattern pat2= Pattern.compile("^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[@#$%^&+=?])(?=\\S+$).{8,}$");
+			Matcher mat2= pat2.matcher(password.getText());
 			
-			if(mat.matches()) {
+			
+			
+			if(mat.matches()&&mat2.matches()) {
+				String correo = mail.getText();
+				String nombre = nick.getText();
+				String contra = methods.getSHA256(password.getText());
 				user_aux.setId_user(this.user.getId_user());
 				user_aux.setMail(correo);
 				user_aux.setNick(nombre);

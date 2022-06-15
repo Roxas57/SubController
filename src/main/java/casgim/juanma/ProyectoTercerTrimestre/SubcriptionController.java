@@ -117,8 +117,26 @@ public class SubcriptionController {
     			JOptionPane.showMessageDialog(null, ex.getMessage());
 			}
     	}
-    	
     }
+    
+    @FXML
+	private void switchToLogin(ActionEvent event) throws IOException {
+		((Node) (event.getSource())).getScene().getWindow().hide();
+		Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
+		Scene scene = new Scene(root, 300, 430);
+		Stage newStage = new Stage();
+		newStage.setScene(scene);
+		newStage.show();
+
+		newStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+
+			@Override
+			public void handle(WindowEvent event) {
+				// TODO Auto-generated method stub
+				Platform.exit();
+			}
+		});
+	}
     
     /*
 	 * Este metodo inicializa el campo TableView con las subcripciones
