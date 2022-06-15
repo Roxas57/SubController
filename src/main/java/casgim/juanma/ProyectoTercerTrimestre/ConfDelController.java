@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.swing.JOptionPane;
 
 import casgim.juanma.ProyectoTercerTrimestre.model.DAO.SubcriptionDAO;
+import casgim.juanma.ProyectoTercerTrimestre.model.DataObject.User;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -26,6 +27,7 @@ import javafx.stage.WindowEvent;
 public class ConfDelController {
 	SubcriptionDAO subdao = new SubcriptionDAO();
 	int id_sub_aux = DataService.subaux.getId_sub();
+	User u_aux = DataService.useraux;
 	boolean del = false;
 	
 	/*
@@ -35,7 +37,7 @@ public class ConfDelController {
 	@FXML
 	private void deleteSub(ActionEvent event) throws IOException  {
 		boolean result = false;
-		result = subdao.delById(id_sub_aux);
+		result = subdao.delete(id_sub_aux);
 		
 		if(result!=false) {
 			JOptionPane.showMessageDialog(null, "Subcripción eliminada con éxito");
@@ -50,21 +52,37 @@ public class ConfDelController {
 	 */
 	@FXML
     private void switchToSubcription(ActionEvent event) throws IOException {
-    	((Node) (event.getSource())).getScene().getWindow().hide();
-    	Parent root = FXMLLoader.load(getClass().getResource("subcription.fxml"));
-    	Scene scene = new Scene(root,600,400);
-    	Stage newStage = new Stage();
-    	newStage.setScene(scene);
-    	newStage.setTitle("Your Subcriptions");
-    	newStage.show();
-    	
-    	newStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-			
-			@Override
-			public void handle(WindowEvent event) {
-				// TODO Auto-generated method stub
-				Platform.exit();
-			}
-		});
+		((Node) (event.getSource())).getScene().getWindow().hide();
+    	if (u_aux.getId_user()!=0) {
+    		Parent root = FXMLLoader.load(getClass().getResource("subcription.fxml"));
+    		Scene scene = new Scene(root,600,400);
+        	Stage newStage = new Stage();
+        	newStage.setScene(scene);
+        	newStage.setTitle("Your Subcriptions");
+        	newStage.show();
+        	newStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+    			
+    			@Override
+    			public void handle(WindowEvent event) {
+    				// TODO Auto-generated method stub
+    				Platform.exit();
+    			}
+        	});
+    	} else {
+    		Parent root = FXMLLoader.load(getClass().getResource("rootsubcription.fxml"));
+    		Scene scene = new Scene(root,600,400);
+        	Stage newStage = new Stage();
+        	newStage.setScene(scene);
+        	newStage.setTitle("ALL Subcriptions");
+        	newStage.show();
+        	newStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+    			
+    			@Override
+    			public void handle(WindowEvent event) {
+    				// TODO Auto-generated method stub
+    				Platform.exit();
+    			}
+        	});
+    	}
     }
 }

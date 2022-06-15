@@ -15,10 +15,11 @@
             <Font name="DejaVu Serif Bold" size="38.0" />
          </font>
       </Text>
-      <Button fx:id="addButton" layoutX="112.0" layoutY="368.0" mnemonicParsing="false" onAction="#addButton" text="Añadir" />
+      <Button fx:id="addButton" layoutX="62.0" layoutY="368.0" mnemonicParsing="false" onAction="#addButton" text="Añadir" />
       <TextField fx:id="service" layoutX="56.0" layoutY="126.0" prefHeight="32.0" prefWidth="188.0" promptText="Servicio" />
       <ChoiceBox fx:id="ChB" layoutX="74.0" layoutY="248.0" prefWidth="150.0" />
       <DatePicker fx:id="payDay" layoutX="62.0" layoutY="189.0" promptText="Último Pago" />
       <TextField fx:id="price" layoutX="56.0" layoutY="303.0" prefHeight="32.0" prefWidth="188.0" promptText="Precio" />
+      <Button fx:id="Volver" layoutX="185.0" layoutY="368.0" mnemonicParsing="false" onAction="#switchToSubcription" text="Volver" />
    </children>
 </AnchorPane>

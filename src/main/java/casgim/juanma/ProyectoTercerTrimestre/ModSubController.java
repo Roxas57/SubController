@@ -3,7 +3,9 @@ package casgim.juanma.ProyectoTercerTrimestre;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.chrono.IsoChronology;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -11,6 +13,7 @@ import javax.swing.JOptionPane;
 
 import casgim.juanma.ProyectoTercerTrimestre.model.DAO.SubcriptionDAO;
 import casgim.juanma.ProyectoTercerTrimestre.model.DataObject.Subcription;
+import casgim.juanma.ProyectoTercerTrimestre.model.DataObject.User;
 import casgim.juanma.ProyectoTercerTrimestre.utils.Connect;
 import casgim.juanma.ProyectoTercerTrimestre.utils.methods;
 import javafx.application.Platform;
@@ -33,7 +36,7 @@ public class ModSubController implements Initializable{
 	private Connection miConexion;
 	SubcriptionDAO subdao = new SubcriptionDAO();
 	Subcription subcripcion = new Subcription();
-	int id_u_aux = DataService.useraux.getId_user();
+	User u_aux = DataService.useraux;
 	int id_sub_aux = DataService.subaux.getId_sub();
 	
 	@FXML
@@ -76,6 +79,21 @@ public class ModSubController implements Initializable{
     public void initAttributes(Subcription s) {
     	this.subcripcion = s;
     	this.service.setText(s.getService()+"");
+    	
+    	this.payDay.setValue(s.getPay_day().toLocalDate());
+    	
+    	String price = String.valueOf(s.getPrice());
+    	this.price.setText(price);
+    	
+    	if (s.getType().equals("Diaria")) {
+    		ChB.setValue("Diaria");
+    	} else if(s.getType().equals("Semanal")) {
+    		ChB.setValue("Semanal");
+    	} else if(s.getType().equals("Mensual")) {
+    		ChB.setValue("Mensual");
+    	} else if(s.getType().equals("Anual")) {
+    		ChB.setValue("Anual");
+    	}
     }
     
     /*
@@ -98,7 +116,7 @@ public class ModSubController implements Initializable{
 			subcripcion_aux.setPay_day(diapago);
 			subcripcion_aux.setType(tipopago);
 			subcripcion_aux.setPrice(fprecio);
-			subcripcion_aux.setId_user(id_u_aux);
+			subcripcion_aux.setUsuario(u_aux);;
 			
 			boolean result = false;
 			result = subdao.update(subcripcion_aux);
@@ -120,20 +138,36 @@ public class ModSubController implements Initializable{
     @FXML
     private void switchToSubcription(ActionEvent event) throws IOException {
     	((Node) (event.getSource())).getScene().getWindow().hide();
-    	Parent root = FXMLLoader.load(getClass().getResource("subcription.fxml"));
-    	Scene scene = new Scene(root,600,400);
-    	Stage newStage = new Stage();
-    	newStage.setScene(scene);
-    	newStage.setTitle("Your Subcriptions");
-    	newStage.show();
-    	
-    	newStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-			
-			@Override
-			public void handle(WindowEvent event) {
-				// TODO Auto-generated method stub
-				Platform.exit();
-			}
-		});
+    	if (u_aux.getId_user()!=0) {
+    		Parent root = FXMLLoader.load(getClass().getResource("subcription.fxml"));
+    		Scene scene = new Scene(root,600,400);
+        	Stage newStage = new Stage();
+        	newStage.setScene(scene);
+        	newStage.setTitle("Your Subcriptions");
+        	newStage.show();
+        	newStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+    			
+    			@Override
+    			public void handle(WindowEvent event) {
+    				// TODO Auto-generated method stub
+    				Platform.exit();
+    			}
+        	});
+    	} else {
+    		Parent root = FXMLLoader.load(getClass().getResource("rootsubcription.fxml"));
+    		Scene scene = new Scene(root,600,400);
+        	Stage newStage = new Stage();
+        	newStage.setScene(scene);
+        	newStage.setTitle("ALL Subcriptions");
+        	newStage.show();
+        	newStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+    			
+    			@Override
+    			public void handle(WindowEvent event) {
+    				// TODO Auto-generated method stub
+    				Platform.exit();
+    			}
+        	});
+    	}
     }
 }

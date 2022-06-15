@@ -1,4 +1,4 @@
-package interfaces;
+package casgim.juanma.ProyectoTercerTrimestre.interfaces;
 
 import java.util.Collection;
 
@@ -10,5 +10,5 @@ public interface ISubcriptionDao<T, K> {
 	Collection <T> getAll();
 	boolean update (T ob);
 	boolean delete (T ob);
-	boolean delById(int id);
+	boolean delete(int id);
 }

@@ -9,7 +9,7 @@ public class Subcription {
 	private float price;
 	private LocalDateTime pay_day;
 	private String type;
-	private int id_user;
+	private User usuario; //Objeto Usuario
 	
 	public Subcription() {
 		this.id_sub = -1;
@@ -17,18 +17,20 @@ public class Subcription {
 		this.price = 0;
 		this.pay_day = LocalDateTime.now();
 		this.type = "";
-		this.id_user = -1;
+		this.usuario = null;
 	}
 	
-	public Subcription(int id_sub, String service, float price, LocalDateTime pay_day, String type, int id_user) {
+	public Subcription(int id_sub, String service, float price, LocalDateTime pay_day, String type, User usuario) {
 		super();
 		this.id_sub = id_sub;
 		this.service = service;
 		this.price = price;
 		this.pay_day = pay_day;
 		this.type = type;
-		this.id_user = id_user;
+		this.usuario = usuario;
 	}
+	
+	
 
 	public int getId_sub() {
 		return id_sub;
@@ -70,22 +72,21 @@ public class Subcription {
 		this.type = type;
 	}
 
-	public int getId_user() {
-		return id_user;
-	}
-
-	public void setId_user(int id_user) {
-		this.id_user = id_user;
+	public User getUsuario() {
+		return usuario;
 	}
 	
+	public String getUser() {
+		return this.usuario.getNick();
+	}
+
+	public void setUsuario(User usuario) {
+		this.usuario = usuario;
+	}
+
 	@Override
 	public String toString() {
 		return "Subcription [id_sub=" + id_sub + ", service=" + service + ", price=" + price + ", pay_day=" + pay_day
-				+ ", type=" + type + "]";
+				+ ", type=" + type + ", usuario=" + usuario + "]";
 	}
-
-
-	
-	
-	
 }

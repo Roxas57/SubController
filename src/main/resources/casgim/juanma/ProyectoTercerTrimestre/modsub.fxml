@@ -15,11 +15,12 @@
             <Font name="DejaVu Serif Bold" size="38.0" />
          </font>
       </Text>
-      <Button layoutX="56.0" layoutY="368.0" mnemonicParsing="false" onAction="#saveNewSub" text="Modificar" />
+      <Button layoutX="22.0" layoutY="368.0" mnemonicParsing="false" onAction="#saveNewSub" text="Modificar" />
       <TextField fx:id="service" layoutX="56.0" layoutY="126.0" prefHeight="32.0" prefWidth="188.0" promptText="Servicio" />
       <ChoiceBox fx:id="ChB" layoutX="75.0" layoutY="257.0" prefWidth="150.0" />
       <DatePicker fx:id="payDay" layoutX="62.0" layoutY="189.0" promptText="Último Pago" />
-      <Button layoutX="177.0" layoutY="368.0" mnemonicParsing="false" onAction="#switchToConfDel" text="Eliminar" />
+      <Button layoutX="120.0" layoutY="368.0" mnemonicParsing="false" onAction="#switchToConfDel" text="Eliminar" />
       <TextField fx:id="price" layoutX="56.0" layoutY="314.0" prefHeight="32.0" prefWidth="188.0" promptText="Precio" />
+      <Button layoutX="208.0" layoutY="368.0" mnemonicParsing="false" onAction="#switchToSubcription" text="Volver" />
    </children>
 </AnchorPane>

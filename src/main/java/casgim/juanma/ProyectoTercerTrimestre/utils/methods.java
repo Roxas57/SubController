@@ -1,5 +1,8 @@
 package casgim.juanma.ProyectoTercerTrimestre.utils;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+
 public class methods {
 	/**
 	 * El método generaAleatorio sirve para generar números aleatorios que posteriormente 
@@ -18,5 +21,19 @@ public class methods {
 		}
 		valor = (int) (Math.random() * (upper - lower)) + lower;
 		return valor;
+	}
+	
+	public static String getSHA256(String input) {
+		String toReturn = null;
+		try {
+			MessageDigest digest = MessageDigest.getInstance("SHA-256");
+			digest.reset();
+			digest.update(input.getBytes("utf8"));
+			toReturn = String.format("%64x", new BigInteger(1, digest.digest()));
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return toReturn;
 	}
 }

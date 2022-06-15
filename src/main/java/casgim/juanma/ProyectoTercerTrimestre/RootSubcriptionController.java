@@ -37,7 +37,7 @@ import javafx.stage.WindowEvent;
  * Esta clase sirve para controlar la ventana subcription.fxml
  *
  */
-public class SubcriptionController {
+public class RootSubcriptionController {
 	SubcriptionDAO sub = new SubcriptionDAO();
 	int id_u_aux = DataService.useraux.getId_user();
 	
@@ -45,6 +45,8 @@ public class SubcriptionController {
     private Label annual_expend;
 	@FXML
 	private TableView<Subcription> mySubcription;
+	@FXML
+	private TableColumn<Subcription, String> user;
 	@FXML
 	private TableColumn<Subcription, String> service;
 	@FXML
@@ -54,20 +56,19 @@ public class SubcriptionController {
 	@FXML
 	private TableColumn<Subcription, String> type;
 	@FXML
-	private TableColumn<Subcription, LocalDateTime> nextDay;
-	@FXML
 	private ObservableList<Subcription> subcripcion;
 	
 	/*
-	 * Este metodo cambia a la ventana addsub.fxml
+	 * Este metodo cambia a la ventana rootmenu.fxml
 	 */
     @FXML
-    private void switchToAddSub(ActionEvent event) throws IOException {
+    private void switchToRootMenu(ActionEvent event) throws IOException {
     	((Node) (event.getSource())).getScene().getWindow().hide();
-    	Parent root = FXMLLoader.load(getClass().getResource("addsub.fxml"));
-    	Scene scene = new Scene(root,300,430);
+    	Parent root = FXMLLoader.load(getClass().getResource("rootmenu.fxml"));
+    	Scene scene = new Scene(root,400,200);
     	Stage newStage = new Stage();
     	newStage.setScene(scene);
+    	newStage.setTitle("Your Subcriptions");
     	newStage.show();
     	
     	newStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -116,8 +117,7 @@ public class SubcriptionController {
     		} catch (Exception ex) {
     			JOptionPane.showMessageDialog(null, ex.getMessage());
 			}
-    	}
-    	
+    	}	
     }
     
     /*
@@ -127,12 +127,12 @@ public class SubcriptionController {
 	@FXML
 	protected void initialize() {
 		subcripcion = FXCollections.observableArrayList();
-		
+		this.user.setCellValueFactory(new PropertyValueFactory<>("user"));
 		this.service.setCellValueFactory(new PropertyValueFactory<>("service")); 
 		this.price.setCellValueFactory(new PropertyValueFactory<>("price"));
 		this.payDay.setCellValueFactory(new PropertyValueFactory<>("pay_day"));
 		this.type.setCellValueFactory(new PropertyValueFactory<>("type"));
-		ObservableList<Subcription> list = sub.getAllSub(DataService.useraux);
+		ObservableList<Subcription> list = (ObservableList<Subcription>) sub.getAllSubcription();
 		this.mySubcription.setItems(list);
 	}
 

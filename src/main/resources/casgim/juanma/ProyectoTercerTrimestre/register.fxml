@@ -13,7 +13,7 @@
    <children>
       <TextField fx:id="user" layoutX="56.0" layoutY="268.0" prefHeight="32.0" prefWidth="188.0" promptText="Usuario" />
       <PasswordField fx:id="password" layoutX="56.0" layoutY="319.0" prefHeight="32.0" prefWidth="188.0" promptText="Contraseña" />
-      <Button fx:id="registerButton" layoutX="112.0" layoutY="368.0" mnemonicParsing="false" onAction="#registerButton" text="Registrarse" />
+      <Button fx:id="registerButton" layoutX="57.0" layoutY="373.0" mnemonicParsing="false" onAction="#registerButton" text="Registrarse" />
       <TextField fx:id="mail" layoutX="56.0" layoutY="215.0" prefHeight="32.0" prefWidth="188.0" promptText="Correo" />
       <Text layoutX="40.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sub Controller" textAlignment="CENTER" wrappingWidth="220.32421875">
          <font>
@@ -25,5 +25,6 @@
             <Image url="@../../../pictures/icon.png" />
          </image>
       </ImageView>
+      <Button layoutX="194.0" layoutY="373.0" mnemonicParsing="false" onAction="#switchToLogin" text="Volver" />
    </children>
 </AnchorPane>

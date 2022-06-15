@@ -7,13 +7,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Collection;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
 import casgim.juanma.ProyectoTercerTrimestre.DataService;
+import casgim.juanma.ProyectoTercerTrimestre.interfaces.IUserDao;
 import casgim.juanma.ProyectoTercerTrimestre.model.DataObject.User;
 import casgim.juanma.ProyectoTercerTrimestre.utils.Connect;
-import interfaces.IUserDao;
+import javafx.collections.FXCollections;
 
 public class UserDAO implements IUserDao<User, Integer>{
 	private Connection miConexion;
@@ -43,25 +45,26 @@ public class UserDAO implements IUserDao<User, Integer>{
 	}
 
 	@Override
-	public User get(Integer id) {
-		User u=null;
-		String sql = "SELECT id_user,mail,nick,password FROM user WHERE id_user='"+id+"'";
+	public List<User> getAllUser() {
+		List<User> listausuarios = FXCollections.observableArrayList();
+		String sql = "SELECT id_user,mail,nick,password FROM user";
 		try {
 			PreparedStatement sentencia = miConexion.prepareStatement(sql);
-			ResultSet miRs= sentencia.executeQuery();
-			u=new User();
-			miRs.next();
-			u.setId_user(miRs.getInt("id_user"));
-			u.setMail(miRs.getString("mail"));
-			u.setNick(miRs.getString("nick"));
-			u.setPassword(miRs.getString("password"));
-			
-			SubcriptionDAO sDao = new SubcriptionDAO();
-			u.setMySubs(sDao.getAll());
+			ResultSet rs= sentencia.executeQuery();
+			while(rs.next()) {
+				User u=new User();
+				u.setId_user(rs.getInt("id_user"));
+				u.setMail(rs.getString("mail"));
+				u.setNick(rs.getString("nick"));
+				u.setPassword(rs.getString("password"));
+				
+				listausuarios.add(u);
+			}
+
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return u;
+		return listausuarios;
 	}
 	
 	@Override
@@ -101,14 +104,14 @@ public class UserDAO implements IUserDao<User, Integer>{
 
 	@Override
 	public boolean update(User ob) {
-		String update = "UPDATE "+ob+"FROM user";
+		String update = "UPDATE user SET mail=?,nick=?,password=? WHERE id_user=?";
 		boolean result=false;
 		try {
 			PreparedStatement sentencia = miConexion.prepareStatement(update);
-			sentencia.setInt(1, ob.getId_user());
-			sentencia.setString(2, ob.getMail());
-			sentencia.setString(3, ob.getNick());
-			sentencia.setString(4, ob.getPassword());
+			sentencia.setInt(4, ob.getId_user());
+			sentencia.setString(1, ob.getMail());
+			sentencia.setString(2, ob.getNick());
+			sentencia.setString(3, ob.getPassword());
 			sentencia.executeUpdate();
 			result=true;
 		} catch (SQLException e) {
@@ -119,10 +122,11 @@ public class UserDAO implements IUserDao<User, Integer>{
 
 	@Override
 	public boolean delete(User ob) {
-		String update = "DELETE "+ob+"FROM user";
+		String update = "DELETE FROM user WHERE id_user=?";
 		boolean result=false;
 		try {
 			PreparedStatement sentencia = miConexion.prepareStatement(update);
+			sentencia.setInt(1, ob.getId_user());
 			sentencia.executeUpdate();
 			result=true;
 		} catch (SQLException e) {
@@ -131,11 +135,6 @@ public class UserDAO implements IUserDao<User, Integer>{
 		return result;
 	}
 
-	@Override
-	public boolean delById(int id) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 
 }

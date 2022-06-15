@@ -78,7 +78,7 @@ public class AddSub implements Initializable{
 			sub.setPay_day(diapago);
 			sub.setType(tipopago);
 			sub.setPrice(fprecio);
-			sub.setId_user(id_u_aux);
+			sub.setUsuario(DataService.useraux);
 			
 			boolean result = false;
 			result = subdao.insert(sub);
@@ -91,7 +91,6 @@ public class AddSub implements Initializable{
 	    	}
 		} catch (Exception ex) {
 			JOptionPane.showMessageDialog(null, ex.getMessage());
-			JOptionPane.showMessageDialog(null, "Error al crear Subcripción");
 		}
 	}
 	
@@ -127,4 +126,5 @@ public class AddSub implements Initializable{
 			}
 		});
     }
+
 }

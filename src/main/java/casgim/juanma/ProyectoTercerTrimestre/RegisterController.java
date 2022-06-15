@@ -65,7 +65,8 @@ public class RegisterController {
 			if(mat.matches()&&mat2.matches()) {
 				String correo = mail.getText();
 				String usuario = user.getText();
-		    	String pass = password.getText();
+				String pass = methods.getSHA256(password.getText());
+		    	//String pass = password.getText();
 		    	
 		    	int id=methods.generaAleatorio(0, 10000);
 				/*
@@ -110,6 +111,29 @@ public class RegisterController {
     	((Node) (event.getSource())).getScene().getWindow().hide();
     	Parent root = FXMLLoader.load(getClass().getResource("subcription.fxml"));
     	Scene scene = new Scene(root,600,400);
+    	Stage newStage = new Stage();
+    	newStage.setScene(scene);
+    	newStage.setTitle("Your Subcriptions");
+    	newStage.show();
+    	
+    	newStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			
+			@Override
+			public void handle(WindowEvent event) {
+				// TODO Auto-generated method stub
+				Platform.exit();
+			}
+		});
+    }
+    
+	/*
+	 * Este metodo cambia a la ventana login.fxml
+	 */
+    @FXML
+    private void switchToLogin(ActionEvent event) throws IOException {
+    	((Node) (event.getSource())).getScene().getWindow().hide();
+    	Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
+    	Scene scene = new Scene(root,300, 430);
     	Stage newStage = new Stage();
     	newStage.setScene(scene);
     	newStage.setTitle("Your Subcriptions");

@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 
 import casgim.juanma.ProyectoTercerTrimestre.model.DAO.UserDAO;
 import casgim.juanma.ProyectoTercerTrimestre.utils.Connect;
+import casgim.juanma.ProyectoTercerTrimestre.utils.methods;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -62,7 +63,8 @@ public class LoginController {
     	try {
 			this.miConexion = Connect.getConnect();
 			String usuario = user.getText();
-	    	String pass = password.getText();
+			String pass = methods.getSHA256(password.getText());
+	    	//String pass = password.getText();
 	    	/*
 	    	boolean result = false;
 	    	result = userDao.getByIdPassword(usuario, pass);
@@ -79,12 +81,17 @@ public class LoginController {
 	    			int id = resultado.getInt("id_user");
 	    			String correo = resultado.getString("mail");
 	    			String nick = resultado.getString("nick");
-	    			String password = resultado.getString("password");
+	    			String passw = resultado.getString("password");
 	    			DataService.useraux.setId_user(id);
 	    			DataService.useraux.setMail(correo);
 	    			DataService.useraux.setNick(nick);
-	    			DataService.useraux.setPassword(password);
-		    		switchToSubcription(event);
+	    			DataService.useraux.setPassword(passw);
+	    			if (user.getText().equals("root") && password.getText().equals("root")) {
+	    				switchToRootMenu(event);
+	    			} else {
+	    				switchToSubcription(event);
+	    			}
+		    		
 		    	} else {
 		    		JOptionPane.showMessageDialog(null, "Usuario o contraseña erróneos");
 		    	}
@@ -108,6 +115,29 @@ public class LoginController {
     	((Node) (event.getSource())).getScene().getWindow().hide();
     	Parent root = FXMLLoader.load(getClass().getResource("subcription.fxml"));
     	Scene scene = new Scene(root,600,400);
+    	Stage newStage = new Stage();
+    	newStage.setScene(scene);
+    	newStage.setTitle("Your Subcriptions");
+    	newStage.show();
+    	
+    	newStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			
+			@Override
+			public void handle(WindowEvent event) {
+				// TODO Auto-generated method stub
+				Platform.exit();
+			}
+		});
+    }
+    
+    /*
+	 * Este metodo cambia a la ventana rootmenu.fxml
+	 */
+    @FXML
+    private void switchToRootMenu(ActionEvent event) throws IOException {
+    	((Node) (event.getSource())).getScene().getWindow().hide();
+    	Parent root = FXMLLoader.load(getClass().getResource("rootmenu.fxml"));
+    	Scene scene = new Scene(root,400,200);
     	Stage newStage = new Stage();
     	newStage.setScene(scene);
     	newStage.setTitle("Your Subcriptions");
