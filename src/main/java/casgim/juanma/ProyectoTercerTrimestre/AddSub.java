@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 import casgim.juanma.ProyectoTercerTrimestre.model.DAO.SubcriptionDAO;
 import casgim.juanma.ProyectoTercerTrimestre.model.DataObject.Subcription;
 import casgim.juanma.ProyectoTercerTrimestre.utils.Connect;
-import casgim.juanma.ProyectoTercerTrimestre.utils.methods;
+import casgim.juanma.ProyectoTercerTrimestre.utils.Methods;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -71,7 +71,7 @@ public class AddSub implements Initializable{
 			String precio = price.getText();
 			float fprecio = Float.parseFloat(precio);
 			
-			int id=methods.generaAleatorio(0, 10000);
+			int id=Methods.generaAleatorio(0, 10000);
 			
 			sub.setId_sub(id);
 			sub.setService(plataforma);

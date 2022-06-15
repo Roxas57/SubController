@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 
 import casgim.juanma.ProyectoTercerTrimestre.model.DAO.UserDAO;
 import casgim.juanma.ProyectoTercerTrimestre.utils.Connect;
-import casgim.juanma.ProyectoTercerTrimestre.utils.methods;
+import casgim.juanma.ProyectoTercerTrimestre.utils.Methods;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -63,7 +63,7 @@ public class LoginController {
     	try {
 			this.miConexion = Connect.getConnect();
 			String usuario = user.getText();
-			String pass = methods.getSHA256(password.getText());
+			String pass = Methods.getSHA256(password.getText());
 	    	//String pass = password.getText();
 	    	/*
 	    	boolean result = false;

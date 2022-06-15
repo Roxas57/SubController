@@ -8,6 +8,7 @@ public class Subcription {
 	private String service;
 	private float price;
 	private LocalDateTime pay_day;
+	private LocalDateTime next_payday;
 	private String type;
 	private User usuario; //Objeto Usuario
 	
@@ -62,6 +63,14 @@ public class Subcription {
 
 	public void setPay_day(LocalDateTime diapago) {
 		this.pay_day = diapago;
+	}
+	
+	public LocalDateTime getNext_payday() {
+		return next_payday;
+	}
+
+	public void setNext_payday(LocalDateTime next_payday) {
+		this.next_payday = next_payday;
 	}
 
 	public String getType() {

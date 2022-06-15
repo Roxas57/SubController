@@ -2,8 +2,9 @@ package casgim.juanma.ProyectoTercerTrimestre.utils;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
+import java.time.LocalDateTime;
 
-public class methods {
+public class Methods {
 	/**
 	 * El método generaAleatorio sirve para generar números aleatorios que posteriormente 
 	 * guardaremos en un array.
@@ -35,5 +36,19 @@ public class methods {
 			e.printStackTrace();
 		}
 		return toReturn;
+	}
+	
+	public static LocalDateTime calculaFecha(LocalDateTime f, String t) {
+		LocalDateTime fecha = null;
+		if (t.equals("Diaria")) {
+			fecha = f.plusDays(1);
+		} else if (t.equals("Semanal")){
+			fecha = f.plusWeeks(1);
+		} else if (t.equals("Mensual")) {
+			fecha = f.plusMonths(1);
+		} else if (t.equals("Anual")) {
+			fecha = f.plusYears(1);
+		}
+		return fecha;
 	}
 }

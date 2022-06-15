@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 import casgim.juanma.ProyectoTercerTrimestre.model.DAO.UserDAO;
 import casgim.juanma.ProyectoTercerTrimestre.model.DataObject.User;
 import casgim.juanma.ProyectoTercerTrimestre.utils.Connect;
-import casgim.juanma.ProyectoTercerTrimestre.utils.methods;
+import casgim.juanma.ProyectoTercerTrimestre.utils.Methods;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -62,7 +62,7 @@ public class RootModUserController {
 			if(mat.matches()&&mat2.matches()) {
 				String correo = mail.getText();
 				String nombre = nick.getText();
-				String contra = methods.getSHA256(password.getText());
+				String contra = Methods.getSHA256(password.getText());
 				user_aux.setId_user(this.user.getId_user());
 				user_aux.setMail(correo);
 				user_aux.setNick(nombre);

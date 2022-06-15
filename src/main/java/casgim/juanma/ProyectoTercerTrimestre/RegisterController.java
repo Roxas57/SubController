@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 import casgim.juanma.ProyectoTercerTrimestre.model.DAO.UserDAO;
 import casgim.juanma.ProyectoTercerTrimestre.model.DataObject.User;
 import casgim.juanma.ProyectoTercerTrimestre.utils.Connect;
-import casgim.juanma.ProyectoTercerTrimestre.utils.methods;
+import casgim.juanma.ProyectoTercerTrimestre.utils.Methods;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -65,10 +65,10 @@ public class RegisterController {
 			if(mat.matches()&&mat2.matches()) {
 				String correo = mail.getText();
 				String usuario = user.getText();
-				String pass = methods.getSHA256(password.getText());
+				String pass = Methods.getSHA256(password.getText());
 		    	//String pass = password.getText();
 		    	
-		    	int id=methods.generaAleatorio(0, 10000);
+		    	int id=Methods.generaAleatorio(0, 10000);
 
 				u.setId_user(id);
 		    	u.setMail(correo);

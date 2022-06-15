@@ -15,7 +15,7 @@ import casgim.juanma.ProyectoTercerTrimestre.model.DAO.SubcriptionDAO;
 import casgim.juanma.ProyectoTercerTrimestre.model.DataObject.Subcription;
 import casgim.juanma.ProyectoTercerTrimestre.model.DataObject.User;
 import casgim.juanma.ProyectoTercerTrimestre.utils.Connect;
-import casgim.juanma.ProyectoTercerTrimestre.utils.methods;
+import casgim.juanma.ProyectoTercerTrimestre.utils.Methods;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

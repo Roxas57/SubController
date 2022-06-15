@@ -3,6 +3,7 @@ package casgim.juanma.ProyectoTercerTrimestre;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -11,6 +12,7 @@ import casgim.juanma.ProyectoTercerTrimestre.model.DAO.SubcriptionDAO;
 import casgim.juanma.ProyectoTercerTrimestre.model.DAO.UserDAO;
 import casgim.juanma.ProyectoTercerTrimestre.model.DataObject.Subcription;
 import casgim.juanma.ProyectoTercerTrimestre.model.DataObject.User;
+import casgim.juanma.ProyectoTercerTrimestre.utils.Methods;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -145,13 +147,20 @@ public class SubcriptionController {
 	@FXML
 	protected void initialize() {
 		subcripcion = FXCollections.observableArrayList();
-		
+
 		this.service.setCellValueFactory(new PropertyValueFactory<>("service")); 
 		this.price.setCellValueFactory(new PropertyValueFactory<>("price"));
 		this.payDay.setCellValueFactory(new PropertyValueFactory<>("pay_day"));
 		this.type.setCellValueFactory(new PropertyValueFactory<>("type"));
-		ObservableList<Subcription> list = sub.getAllSub(DataService.useraux);
-		this.mySubcription.setItems(list);
+		List<Subcription> list = sub.getAllSub(DataService.useraux);
+		Iterator<Subcription> it = list.iterator();
+		while (it.hasNext()) {
+			Subcription sub = (Subcription) it.next();
+			LocalDateTime next = Methods.calculaFecha(sub.getPay_day(), sub.getType());
+			sub.setNext_payday(next);
+			this.nextDay.setCellValueFactory(new PropertyValueFactory<>("next_payday"));
+		}
+		this.mySubcription.setItems((ObservableList<Subcription>) list);
 	}
 
 }
